@@ -15,6 +15,7 @@ namespace AuthNDecryptService
     {
         private string tokenApp = "KwdcVAQVK0KzabAM62qp0g==";
         private User user = new User();
+        //DocumentVerificationService.DocumentVerificationEndpointClient epClient = new DocumentVerificationService.DocumentVerificationEndpointClient();
 
         //public string Authenticate(User user)
         //{
@@ -77,9 +78,7 @@ namespace AuthNDecryptService
 
         public async Task<string> AuthenticateAsync(User user)
         {
-            //throw new NotImplementedException();
             bool isAllowed = false;
-            Console.WriteLine("test");
 
             using (var cnn = new MySqlConnection(Properties.Settings.Default.DBConnectionString))
             {
@@ -99,12 +98,6 @@ namespace AuthNDecryptService
                                     {
                                         isAllowed = true;
                                         user.userId = Convert.ToInt32(dataReader.GetString(i));
-
-                                        user.tokenUser += user.username.GetHashCode();
-                                        user.tokenUser += user.userPassword.GetHashCode();
-                                        user.tokenUser += user.tokenApp.GetHashCode();
-                                        user.tokenUser += DateTime.Now.GetHashCode();
-                                        user.tokenUser = user.tokenUser.GetHashCode().ToString();
                                         this.user = user;
                                         break;
                                     }
@@ -164,27 +157,30 @@ namespace AuthNDecryptService
             return user;
         }
 
-        //public Task<User> GetUserAsync(int loginId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<User> GetUserAsync(int loginId)
+        {
+            User userun = await Task.Run(() => GetUser(loginId));
+            return userun;
+        }
 
         public bool SendDocument(Document document, string tokenApp, string tokenUser)
         {
             if (this.user != new User() && tokenApp == this.tokenApp && tokenUser == GetUser(user.userId).tokenUser)
             {
+                
+                //epClient.verificationOperation(document.fileContent, document.fileName, document.decryptKey);
                 return true;
             }
             return false;
 
         }
 
-        //public Task<bool> SendDocumentAsync(Document document, string tokenApp, string tokenUser)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<bool> SendDocumentAsync(Document document, string tokenApp, string tokenUser)
+        {
+            return await Task.Run(() => SendDocument(document, tokenApp, tokenUser));
+        }
 
-        public string tokenify(User user)
+        public string Tokenify(User user)
         {
             string tokenUser = string.Empty;
             tokenUser += user.username.GetHashCode();

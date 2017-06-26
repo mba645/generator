@@ -18,16 +18,10 @@ namespace AuthNDecryptService
         Task<string> AuthenticateAsync(User user);
 
         [OperationContract]
-        User GetUser(int loginId);
-
-        //[OperationContract]
-        //Task<User> GetUserAsync(int loginId);
+        Task<User> GetUserAsync(int loginId);
 
         [OperationContract]
-        bool SendDocument(Document document, String tokenApp, String tokenUser);
-
-        //[OperationContract]
-        //Task<bool> SendDocumentAsync(Document document, String tokenApp, String tokenUser);
+        Task<bool> SendDocumentAsync(Document document, String tokenApp, String tokenUser);
     }
 
 
