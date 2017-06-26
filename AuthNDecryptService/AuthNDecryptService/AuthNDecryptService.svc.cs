@@ -17,66 +17,7 @@ namespace AuthNDecryptService
         private User user = new User();
         //DocumentVerificationService.DocumentVerificationEndpointClient epClient = new DocumentVerificationService.DocumentVerificationEndpointClient();
 
-        //public string Authenticate(User user)
-        //{
-        //    bool isAllowed = false;
-        //    Console.WriteLine("test");
-
-        //    using (var cnn = new MySqlConnection(Properties.Settings.Default.DBConnectionString))
-        //    {
-        //        using (var cmd = new MySqlCommand(
-        //            "SELECT id_user, username, password FROM user ", cnn))
-        //        {
-        //            cnn.Open();
-        //            using (MySqlDataReader dataReader = cmd.ExecuteReader())
-        //            {
-        //                if (dataReader.HasRows)
-        //                {
-        //                    while (dataReader.Read())
-        //                    {
-        //                        for (int i = 0; i < dataReader.FieldCount; i = i + 3)
-        //                        {
-        //                            if (user.username == dataReader.GetString(i+1) && user.userPassword == dataReader.GetString(i + 2))
-        //                            {
-        //                                isAllowed = true;
-        //                                user.userId = Convert.ToInt32(dataReader.GetString(i));
-
-        //                                user.tokenUser += user.username.GetHashCode();
-        //                                user.tokenUser += user.userPassword.GetHashCode();
-        //                                user.tokenUser += user.tokenApp.GetHashCode();
-        //                                user.tokenUser += DateTime.Now.GetHashCode();
-        //                                user.tokenUser = user.tokenUser.GetHashCode().ToString();
-        //                                this.user = user;
-        //                                break;
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        if (isAllowed)
-        //        {
-        //            int rowsChanged = 0;
-        //            using (var cmd = new MySqlCommand(
-        //                "UPDATE user " +
-        //                "SET token_user = @tokenUser " +
-        //                "WHERE id_user = @userId", cnn))
-        //            {
-        //                cmd.Parameters.Add(new MySqlParameter("@tokenUser", user.tokenUser));
-        //                cmd.Parameters.Add(new MySqlParameter("@userId", user.userId));
-        //                rowsChanged = (int)cmd.ExecuteNonQuery();
-        //                if(rowsChanged != 0)
-        //                {
-        //                    return user.tokenUser;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return ("false");
-        //}
-
-        public async Task<string> AuthenticateAsync(User user)
+        public string Authenticate(User user)
         {
             bool isAllowed = false;
 
@@ -98,6 +39,7 @@ namespace AuthNDecryptService
                                     {
                                         isAllowed = true;
                                         user.userId = Convert.ToInt32(dataReader.GetString(i));
+                                        user.tokenUser = Tokenify(user);
                                         this.user = user;
                                         break;
                                     }
@@ -126,6 +68,11 @@ namespace AuthNDecryptService
             }
 
             return ("false");
+        }
+
+        public async Task<string> AuthenticateAsync(User user)
+        {
+            return await Task.Run(() => Authenticate(user));
         }
 
         public User GetUser(int loginId)
@@ -159,8 +106,7 @@ namespace AuthNDecryptService
 
         public async Task<User> GetUserAsync(int loginId)
         {
-            User userun = await Task.Run(() => GetUser(loginId));
-            return userun;
+            return await Task.Run(() => GetUser(loginId));
         }
 
         public bool SendDocument(Document document, string tokenApp, string tokenUser)
@@ -182,12 +128,11 @@ namespace AuthNDecryptService
 
         public string Tokenify(User user)
         {
-            string tokenUser = string.Empty;
-            tokenUser += user.username.GetHashCode();
-            tokenUser += user.userPassword.GetHashCode();
-            tokenUser += user.tokenApp.GetHashCode();
-            tokenUser += DateTime.Now.GetHashCode();
-            tokenUser = user.tokenUser.GetHashCode().ToString();
+            user.tokenUser += user.username.GetHashCode();
+            user.tokenUser += user.userPassword.GetHashCode();
+            user.tokenUser += user.tokenApp.GetHashCode();
+            user.tokenUser += DateTime.Now.GetHashCode();
+            user.tokenUser = user.tokenUser.GetHashCode().ToString();
 
             return user.tokenUser;
         }
