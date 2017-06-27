@@ -18,10 +18,9 @@ namespace AuthNDecryptService
         private User user = new User();
         DocumentValidatorService.DocumentVerificationEndpointClient epClient = new DocumentValidatorService.DocumentVerificationEndpointClient();
 
-        public string Authenticate(User user)
+        public User Authenticate(User user)
         {
-            bool isAllowed = false;
-
+            user.isValid = false;
             using (var cnn = new MySqlConnection(Properties.Settings.Default.DBConnectionString))
             {
                 using (var cmd = new MySqlCommand(
@@ -38,7 +37,7 @@ namespace AuthNDecryptService
                                 {
                                     if (user.username == dataReader.GetString(i + 1) && user.userPassword == dataReader.GetString(i + 2))
                                     {
-                                        isAllowed = true;
+                                        user.isValid = true;
                                         user.userId = Convert.ToInt32(dataReader.GetString(i));
                                         user.tokenUser = Tokenify(user);
                                         this.user = user;
@@ -49,7 +48,7 @@ namespace AuthNDecryptService
                         }
                     }
                 }
-                if (isAllowed)
+                if (user.isValid)
                 {
                     int rowsChanged = 0;
                     using (var cmd = new MySqlCommand(
@@ -60,18 +59,14 @@ namespace AuthNDecryptService
                         cmd.Parameters.Add(new MySqlParameter("@tokenUser", user.tokenUser));
                         cmd.Parameters.Add(new MySqlParameter("@userId", user.userId));
                         rowsChanged = (int)cmd.ExecuteNonQuery();
-                        if (rowsChanged != 0)
-                        {
-                            return user.tokenUser;
-                        }
                     }
                 }
             }
 
-            return ("false");
+            return user;
         }
 
-        public async Task<string> AuthenticateAsync(User user)
+        public async Task<User> AuthenticateAsync(User user)
         {
             return await Task.Run(() => Authenticate(user));
         }
@@ -129,11 +124,11 @@ namespace AuthNDecryptService
             return await Task.Run(() => SendDocument(document));
         }
 
-        public string UploadDocument(string filename, string fileContent, string tokenApp, string tokenUser)
+        public string UploadDocument(string filename, string fileContent, User user)
         {
             if (this.user != new User())
             {
-                if (tokenApp == this.tokenApp && tokenUser == GetUser(user.userId).tokenUser)
+                if (user.tokenApp == this.tokenApp && user.tokenUser == GetUser(user.userId).tokenUser)
                 {
                     Document document = new Document();
                     document.filename = filename;
@@ -149,9 +144,9 @@ namespace AuthNDecryptService
 
         }
 
-        public async Task<string> UploadDocumentAsync(string filename, string fileContent, string tokenApp, string tokenUser)
+        public async Task<string> UploadDocumentAsync(string filename, string fileContent, User user)
         {
-            return await Task.Run(() => UploadDocument(filename, fileContent, tokenApp, tokenUser));
+            return await Task.Run(() => UploadDocument(filename, fileContent, user));
         }
 
         public string Tokenify(User user)

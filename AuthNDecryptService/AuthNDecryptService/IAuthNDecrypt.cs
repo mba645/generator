@@ -14,7 +14,7 @@ namespace AuthNDecryptService
     public interface IAuthNDecrypt
     {
         [OperationContract]
-        Task<string> AuthenticateAsync(User user);
+        Task<User> AuthenticateAsync(User user);
 
         [OperationContract]
         Task<User> GetUserAsync(int loginId);
@@ -23,13 +23,15 @@ namespace AuthNDecryptService
         Task<bool> SendDocumentAsync(Document document);
 
         [OperationContract]
-        Task<string> UploadDocumentAsync(string filename, string fileContent, string tokenApp, string tokenUser);
+        Task<string> UploadDocumentAsync(string filename, string fileContent, User user);
     }
 
 
     [DataContract]
     public class User
     {
+        [DataMember]
+        public bool isValid { get; set; }
         [DataMember]
         public int userId { get; set; }
         [DataMember]
