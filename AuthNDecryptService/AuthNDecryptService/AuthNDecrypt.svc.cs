@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
+using Decrypt;
 
 namespace AuthNDecryptService
 {
@@ -105,10 +106,13 @@ namespace AuthNDecryptService
             return await Task.Run(() => GetUser(loginId));
         }
 
-        public bool SendDocument(Document document)
+        public string SendDocument(Document document)
         {
-            epClient.documentVerificationOperation(document.fileContent, document.filename, document.decryptKey);
-            return true;
+            Decryption decryption = new Decryption();
+
+            return decryption.GenerateOperation(string.Empty, 0, 6, document.fileContent);
+            //epClient.documentVerificationOperation(document.fileContent, document.filename, document.decryptKey);
+            //return true;
             //if (this.user != new User() && tokenApp == this.tokenApp && tokenUser == GetUser(user.userId).tokenUser)
             //{
 
@@ -119,7 +123,7 @@ namespace AuthNDecryptService
 
         }
 
-        public async Task<bool> SendDocumentAsync(Document document)
+        public async Task<string> SendDocumentAsync(Document document)
         {
             return await Task.Run(() => SendDocument(document));
         }

@@ -162,6 +162,12 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\DocumentValidatorService\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Decrypt\Decrypt.csproj">
+      <Project>{443affca-cebf-47a2-9ef5-2f5627b6afbf}</Project>
+      <Name>Decrypt</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
