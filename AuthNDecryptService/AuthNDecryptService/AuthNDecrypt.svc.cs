@@ -17,7 +17,7 @@ namespace AuthNDecryptService
     {
         private string tokenApp = "KwdcVAQVK0KzabAM62qp0g==";
         private User user = new User();
-        DocumentValidatorService.DocumentVerificationEndpointClient epClient = new DocumentValidatorService.DocumentVerificationEndpointClient();
+        Decryption decryption = new Decryption();
 
         public User Authenticate(User user)
         {
@@ -106,13 +106,13 @@ namespace AuthNDecryptService
             return await Task.Run(() => GetUser(loginId));
         }
 
-        public string SendDocument(Document document)
+        public bool SendDocument(Document document)
         {
-            Decryption decryption = new Decryption();
+            
 
-            return decryption.GenerateOperation(string.Empty, 0, 6, document.fileContent);
+            //decryption.GenerateOperation(string.Empty, 0, 6, document.filename, document.fileContent);
             //epClient.documentVerificationOperation(document.fileContent, document.filename, document.decryptKey);
-            //return true;
+            return true;
             //if (this.user != new User() && tokenApp == this.tokenApp && tokenUser == GetUser(user.userId).tokenUser)
             //{
 
@@ -123,28 +123,30 @@ namespace AuthNDecryptService
 
         }
 
-        public async Task<string> SendDocumentAsync(Document document)
+        public async Task<bool> SendDocumentAsync(Document document)
         {
             return await Task.Run(() => SendDocument(document));
         }
 
         public string UploadDocument(string filename, string fileContent, User user)
         {
-            if (this.user != new User())
-            {
-                if (user.tokenApp == this.tokenApp && user.tokenUser == GetUser(user.userId).tokenUser)
-                {
+            //if (this.user != new User())
+            //{
+            //    if (user.tokenApp == this.tokenApp && user.tokenUser == GetUser(user.userId).tokenUser)
+            //    {
                     Document document = new Document();
                     document.filename = filename;
                     document.fileContent = fileContent;
+                    decryption.addTask(document.filename, document.fileContent);
+
                     return "Done";
-                }
-                else
-                {
-                    return "False tokenuser or tokenapp";
-                }
-            }
-            return "No user logged";
+            //    }
+            //    else
+            //    {
+            //        return "False tokenuser or tokenapp";
+            //    }
+            //}
+            //return "No user logged";
 
         }
 

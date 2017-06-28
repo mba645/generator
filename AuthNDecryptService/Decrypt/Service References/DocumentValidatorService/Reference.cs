@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AuthNDecryptService.DocumentValidatorService {
+namespace Decrypt.DocumentValidatorService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -19,12 +19,12 @@ namespace AuthNDecryptService.DocumentValidatorService {
         [System.ServiceModel.OperationContractAttribute(Action="http://facade.project.com/DocumentVerificationEndpoint/documentVerificationOperat" +
             "ionRequest", ReplyAction="http://facade.project.com/DocumentVerificationEndpoint/documentVerificationOperat" +
             "ionResponse")]
-        AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse documentVerificationOperation(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest request);
+        Decrypt.DocumentValidatorService.documentVerificationOperationResponse documentVerificationOperation(Decrypt.DocumentValidatorService.documentVerificationOperationRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://facade.project.com/DocumentVerificationEndpoint/documentVerificationOperat" +
             "ionRequest", ReplyAction="http://facade.project.com/DocumentVerificationEndpoint/documentVerificationOperat" +
             "ionResponse")]
-        System.Threading.Tasks.Task<AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse> documentVerificationOperationAsync(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest request);
+        System.Threading.Tasks.Task<Decrypt.DocumentValidatorService.documentVerificationOperationResponse> documentVerificationOperationAsync(Decrypt.DocumentValidatorService.documentVerificationOperationRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -34,12 +34,12 @@ namespace AuthNDecryptService.DocumentValidatorService {
     public partial class documentVerificationOperationRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="documentVerificationOperation", Namespace="http://facade.project.com/", Order=0)]
-        public AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequestBody Body;
+        public Decrypt.DocumentValidatorService.documentVerificationOperationRequestBody Body;
         
         public documentVerificationOperationRequest() {
         }
         
-        public documentVerificationOperationRequest(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequestBody Body) {
+        public documentVerificationOperationRequest(Decrypt.DocumentValidatorService.documentVerificationOperationRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -76,12 +76,12 @@ namespace AuthNDecryptService.DocumentValidatorService {
     public partial class documentVerificationOperationResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="documentVerificationOperationResponse", Namespace="http://facade.project.com/", Order=0)]
-        public AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponseBody Body;
+        public Decrypt.DocumentValidatorService.documentVerificationOperationResponseBody Body;
         
         public documentVerificationOperationResponse() {
         }
         
-        public documentVerificationOperationResponse(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponseBody Body) {
+        public documentVerificationOperationResponse(Decrypt.DocumentValidatorService.documentVerificationOperationResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -104,12 +104,12 @@ namespace AuthNDecryptService.DocumentValidatorService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface DocumentVerificationEndpointChannel : AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint, System.ServiceModel.IClientChannel {
+    public interface DocumentVerificationEndpointChannel : Decrypt.DocumentValidatorService.DocumentVerificationEndpoint, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DocumentVerificationEndpointClient : System.ServiceModel.ClientBase<AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint>, AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint {
+    public partial class DocumentVerificationEndpointClient : System.ServiceModel.ClientBase<Decrypt.DocumentValidatorService.DocumentVerificationEndpoint>, Decrypt.DocumentValidatorService.DocumentVerificationEndpoint {
         
         public DocumentVerificationEndpointClient() {
         }
@@ -131,32 +131,32 @@ namespace AuthNDecryptService.DocumentValidatorService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint.documentVerificationOperation(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest request) {
+        Decrypt.DocumentValidatorService.documentVerificationOperationResponse Decrypt.DocumentValidatorService.DocumentVerificationEndpoint.documentVerificationOperation(Decrypt.DocumentValidatorService.documentVerificationOperationRequest request) {
             return base.Channel.documentVerificationOperation(request);
         }
         
         public bool documentVerificationOperation(string content, string file, string key) {
-            AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest inValue = new AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest();
-            inValue.Body = new AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequestBody();
+            Decrypt.DocumentValidatorService.documentVerificationOperationRequest inValue = new Decrypt.DocumentValidatorService.documentVerificationOperationRequest();
+            inValue.Body = new Decrypt.DocumentValidatorService.documentVerificationOperationRequestBody();
             inValue.Body.content = content;
             inValue.Body.file = file;
             inValue.Body.key = key;
-            AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse retVal = ((AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint)(this)).documentVerificationOperation(inValue);
+            Decrypt.DocumentValidatorService.documentVerificationOperationResponse retVal = ((Decrypt.DocumentValidatorService.DocumentVerificationEndpoint)(this)).documentVerificationOperation(inValue);
             return retVal.Body.acceptedDocument;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse> AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint.documentVerificationOperationAsync(AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest request) {
+        System.Threading.Tasks.Task<Decrypt.DocumentValidatorService.documentVerificationOperationResponse> Decrypt.DocumentValidatorService.DocumentVerificationEndpoint.documentVerificationOperationAsync(Decrypt.DocumentValidatorService.documentVerificationOperationRequest request) {
             return base.Channel.documentVerificationOperationAsync(request);
         }
         
-        public System.Threading.Tasks.Task<AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse> documentVerificationOperationAsync(string content, string file, string key) {
-            AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest inValue = new AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequest();
-            inValue.Body = new AuthNDecryptService.DocumentValidatorService.documentVerificationOperationRequestBody();
+        public System.Threading.Tasks.Task<Decrypt.DocumentValidatorService.documentVerificationOperationResponse> documentVerificationOperationAsync(string content, string file, string key) {
+            Decrypt.DocumentValidatorService.documentVerificationOperationRequest inValue = new Decrypt.DocumentValidatorService.documentVerificationOperationRequest();
+            inValue.Body = new Decrypt.DocumentValidatorService.documentVerificationOperationRequestBody();
             inValue.Body.content = content;
             inValue.Body.file = file;
             inValue.Body.key = key;
-            return ((AuthNDecryptService.DocumentValidatorService.DocumentVerificationEndpoint)(this)).documentVerificationOperationAsync(inValue);
+            return ((Decrypt.DocumentValidatorService.DocumentVerificationEndpoint)(this)).documentVerificationOperationAsync(inValue);
         }
     }
 }

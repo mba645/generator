@@ -105,16 +105,9 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="AuthNDecrypt.svc" />
-    <Content Include="Service References\DocumentValidatorService\AuthNDecryptService.DocumentValidatorService.documentVerificationOperationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
     </Content>
-    <None Include="Service References\DocumentValidatorService\configuration91.svcinfo" />
-    <None Include="Service References\DocumentValidatorService\configuration.svcinfo" />
-    <None Include="Service References\DocumentValidatorService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthNDecrypt.svc.cs">
@@ -126,11 +119,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\DocumentValidatorService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -145,10 +133,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\DocumentValidatorService\DocumentVerificationService.wsdl" />
-    <None Include="Service References\DocumentValidatorService\DocumentVerificationServiceBean.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,9 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\DocumentValidatorService\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Decrypt\Decrypt.csproj">
