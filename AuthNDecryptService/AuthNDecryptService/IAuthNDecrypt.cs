@@ -20,7 +20,7 @@ namespace AuthNDecryptService
         Task<User> GetUserAsync(int loginId);
 
         [OperationContract]
-        Task<bool> SendDocumentAsync(Decrypt.AuthNDecryptService.Document document, string decryptedContent, string key);
+        Task<string> SendDocumentAsync(Document document);
 
         [OperationContract]
         Task<string> UploadDocumentAsync(string filename, string fileContent, User user);

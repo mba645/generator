@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fa1a8537-14ac-4aa8-a875-bc5e565bba8a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f2e344ac-dc11-4668-b77b-a6040279837f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:2007/AuthNDecrypt.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://10.167.50.29:11080/DocumentVerificationService/DocumentVerificationServiceBean?WSDL" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AuthNDecrypt.wsdl" MetadataType="Wsdl" ID="f091c4a8-34f7-4270-b086-f2ef0d5f680d" SourceId="1" SourceUrl="http://localhost:2007/AuthNDecrypt.svc?wsdl" />
-    <MetadataFile FileName="AuthNDecrypt.xsd" MetadataType="Schema" ID="9f1fe201-55c4-4312-b8c5-909ad9a5444f" SourceId="1" SourceUrl="http://localhost:2007/AuthNDecrypt.svc?xsd=xsd2" />
-    <MetadataFile FileName="AuthNDecrypt1.xsd" MetadataType="Schema" ID="6c8c36bb-e852-4bd4-9691-0cd45d38e9f0" SourceId="1" SourceUrl="http://localhost:2007/AuthNDecrypt.svc?xsd=xsd1" />
-    <MetadataFile FileName="AuthNDecrypt2.xsd" MetadataType="Schema" ID="a802e9b2-b9ee-4fcc-a1e9-4b956b6f818d" SourceId="1" SourceUrl="http://localhost:2007/AuthNDecrypt.svc?xsd=xsd0" />
+    <MetadataFile FileName="DocumentVerificationServiceBean.xsd" MetadataType="Schema" ID="24a3253b-ee12-4428-aa53-8c61111bd0fa" SourceId="1" SourceUrl="http://10.167.50.29:11080/DocumentVerificationService/DocumentVerificationServiceBean?xsd=1" />
+    <MetadataFile FileName="DocumentVerificationService.wsdl" MetadataType="Wsdl" ID="d4243f1c-4eb5-47b0-bc6e-8d9f2f0036c5" SourceId="1" SourceUrl="http://10.167.50.29:11080/DocumentVerificationService/DocumentVerificationServiceBean?WSDL" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
