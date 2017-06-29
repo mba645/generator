@@ -8,6 +8,8 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 using Decrypt;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace AuthNDecryptService
 {
@@ -106,47 +108,35 @@ namespace AuthNDecryptService
             return await Task.Run(() => GetUser(loginId));
         }
 
-        public bool SendDocument(Document document)
+        public bool SendResponse(string filename, string decryptedEmail, string decryptedContent, string key)
         {
-            
-
-            //decryption.GenerateOperation(string.Empty, 0, 6, document.filename, document.fileContent);
-            //epClient.documentVerificationOperation(document.fileContent, document.filename, document.decryptKey);
+            user.username = "maxdu667@hotmail.fr";
+            Response pdf = new Response();
+            pdf.Generate(filename, decryptedEmail, decryptedContent, key);
+            pdf.SendEmail(user.username);
             return true;
-            //if (this.user != new User() && tokenApp == this.tokenApp && tokenUser == GetUser(user.userId).tokenUser)
-            //{
-
-            //    epClient.documentVerificationOperation(document.fileContent, document.fileName, document.decryptKey);
-            //    return true;
-            //}
-            //return false;
-
         }
 
-        public async Task<bool> SendDocumentAsync(Document document)
+        public async Task<bool> SendResponseAsync(string filename, string decryptedEmail, string decryptedContent, string key)
         {
-            return await Task.Run(() => SendDocument(document));
+            return await Task.Run(() => SendResponse(filename, decryptedEmail, decryptedContent, key));
         }
 
         public string UploadDocument(string filename, string fileContent, User user)
         {
-            //if (this.user != new User())
-            //{
-            //    if (user.tokenApp == this.tokenApp && user.tokenUser == GetUser(user.userId).tokenUser)
-            //    {
-                    Document document = new Document();
-                    document.filename = filename;
-                    document.fileContent = fileContent;
-                    decryption.addTask(document.filename, document.fileContent);
-
+            if (this.user != new User())
+            {
+                if (user.tokenApp == this.tokenApp && user.tokenUser == GetUser(user.userId).tokenUser)
+                {
+                    decryption.addTask(filename, fileContent);
                     return "Done";
-            //    }
-            //    else
-            //    {
-            //        return "False tokenuser or tokenapp";
-            //    }
-            //}
-            //return "No user logged";
+                }
+                else
+                {
+                    return "False tokenuser or tokenapp";
+                }
+            }
+            return "No user logged";
 
         }
 
@@ -165,5 +155,7 @@ namespace AuthNDecryptService
 
             return user.tokenUser;
         }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Decrypt
         public void addTask(string filename, string filecontent)
         {
             taskList.Add(Task.Factory.StartNew(() => {
-                GenerateOperation(string.Empty, 0, 6, filename, filecontent);
+                GenerateOperation(string.Empty, 0, 3, filename, filecontent);
             }));
         }
 
@@ -30,28 +31,35 @@ namespace Decrypt
         public async void GenerateOperation(string prefix, int level, int maxlength, string filename, string fileContent)
         {
             level += 1;
+            string key = "ety67";
 
-            foreach (string c in validChars)
-            {
-                string key = prefix + c;
+            string output = JsonConvert.SerializeObject(XOR(fileContent, key));
 
-                //displays the generated key
-                Console.WriteLine("key =  {0}", key);
+            epClient.documentVerificationOperation(output, filename, key);
 
-                epClient.documentVerificationOperationAsync(fileContent, filename, key);
+            //foreach (string c in validChars)
+            //{
+            //    string key = prefix + c + "67";
 
-                if (level < maxlength) GenerateOperation(prefix + c, level, maxlength, filename, fileContent);
-            }
+            //    //displays the generated key
+            //    Console.WriteLine("key =  {0}", key);
+
+            //    string output = JsonConvert.SerializeObject(XOR(fileContent, key));
+
+            //    epClient.documentVerificationOperation(output, filename, key);
+
+            //    if (level < maxlength) GenerateOperation(prefix + c, level, maxlength, filename, fileContent);
+            //}
         }
 
         public string XOR(string msg, string key)
         {
-            var result = new StringBuilder();
+            char[] output = new char[msg.Length];
 
             for (int c = 0; c < msg.Length; c++)
-                result.Append((char)((uint)msg[c] ^ (uint)key[c % key.Length]));
+                output[c] = (char)(msg[c] ^ key[c % key.Length]);
 
-            return result.ToString();
+            return new string(output);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AuthNDecryptService
         Task<User> GetUserAsync(int loginId);
 
         [OperationContract]
-        Task<bool> SendDocumentAsync(Document document);
+        Task<bool> SendResponseAsync(string filename, string decryptedEmail, string decryptedContent, string key);
 
         [OperationContract]
         Task<string> UploadDocumentAsync(string filename, string fileContent, User user);
@@ -42,18 +42,6 @@ namespace AuthNDecryptService
         public string tokenApp { get; set; }
         [DataMember]
         public string tokenUser { get; set; }
-
-    }
-
-    [DataContract]
-    public class Document
-    {
-        [DataMember]
-        public string filename { get; set; }
-        [DataMember]
-        public string fileContent { get; set; }
-        [DataMember]
-        public string decryptKey { get; set; }
 
     }
 }
