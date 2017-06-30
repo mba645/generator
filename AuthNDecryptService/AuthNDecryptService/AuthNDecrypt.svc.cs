@@ -110,7 +110,6 @@ namespace AuthNDecryptService
 
         public bool SendResponse(string filename, string decryptedEmail, string decryptedContent, string key)
         {
-            user.username = "maxdu667@hotmail.fr";
             Response pdf = new Response();
             pdf.Generate(filename, decryptedEmail, decryptedContent, key);
             pdf.SendEmail(user.username);

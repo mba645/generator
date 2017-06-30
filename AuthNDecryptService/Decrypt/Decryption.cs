@@ -31,25 +31,20 @@ namespace Decrypt
         public async void GenerateOperation(string prefix, int level, int maxlength, string filename, string fileContent)
         {
             level += 1;
-            string key = "ety67";
 
-            string output = JsonConvert.SerializeObject(XOR(fileContent, key));
+            foreach (string c in validChars)
+            {
+                string key = prefix + c + "67";
 
-            epClient.documentVerificationOperation(output, filename, key);
+                //displays the generated key
+                Console.WriteLine("key =  {0}", key);
 
-            //foreach (string c in validChars)
-            //{
-            //    string key = prefix + c + "67";
+                string output = JsonConvert.SerializeObject(XOR(fileContent, key));
 
-            //    //displays the generated key
-            //    Console.WriteLine("key =  {0}", key);
+                epClient.documentVerificationOperation(output, filename, key);
 
-            //    string output = JsonConvert.SerializeObject(XOR(fileContent, key));
-
-            //    epClient.documentVerificationOperation(output, filename, key);
-
-            //    if (level < maxlength) GenerateOperation(prefix + c, level, maxlength, filename, fileContent);
-            //}
+                if (level < maxlength) GenerateOperation(prefix + c, level, maxlength, filename, fileContent);
+            }
         }
 
         public string XOR(string msg, string key)
